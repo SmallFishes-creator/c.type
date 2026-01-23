@@ -1,42 +1,72 @@
 #include <stdio.h>
 int main(void)
 {
-    int n = 0;
-    scanf("%d",&n);
-    int inital[n];
+    //输入
+    int n = 0,k = 0;
+    scanf("%d%d",&n,&k);
+    int arr[n];
     for(int i = 0;i < n;i++)
     {
-        scanf("%d",&inital[i]);
+        scanf("%d",&arr[i]);
     }
-    int index[n];
+    //寻找
+    //找到原来质心的位置
+    double inner = 0;
+    double son = 0;
+    double mother = 0;
     for(int i = 0;i < n;i++)
     {
-        scanf("%d",&index[i]);
+        son += arr[i] * i;
+        mother += arr[i];
     }
-    int change[n];
+    inner = son / mother;
+    //二进制枚举
+    unsigned int choose = 1;
     for(int i = 0;i < n;i++)
     {
-        scanf("%d",&change[i]);
+        choose *= 2;
     }
-    for(int i = 0;i < n;i++)
+    choose -= 1;
+    int flag = 0;
+    for(int i = choose;i >= 0;i--)
     {
-        int now_index = index[i] - 1;
-        int need = inital[now_index];
-        int now_change = 0;
         int count = 0;
-        while(need != now_change)
+        flag = 0;
+        int b = i;
+        while(b != 0)
         {
-            now_change = change[now_index];
-            for(int j = 0;j < n;j++)
+            if(b & 1 == 1)
             {
-                if(inital[j] == now_change)
+                count++;
+            }
+            b = b >> 1;
+        }
+        if(count == k)
+        {
+            //计算质心位置
+            double up = 0;
+            double down = 0; 
+            int tmp = i;
+            for(int t = 0;t < n;t++)
+            {
+                if(tmp & 1 == 1)
                 {
-                    now_change = change[j];
-                    count++;
+                    up += arr[t] * t;
+                    down += arr[t];
                 }
+                tmp = tmp >> 1;
+            }
+            if(inner == up / down)
+            {
+                printf("Yes");
+                flag = 1;
+                break;
             }
         }
-        printf("%d ",count);
+        if(flag == 1)
+            break;
     }
+    if(flag == 0)
+        printf("No");
     return 0;
 }
