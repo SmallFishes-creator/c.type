@@ -1,29 +1,29 @@
 #include <stdio.h>
 #define MAXSIZE 100
 typedef int elem_type;
-//Ë³Ğò±íµÄ¶¨Òå 
+//é¡ºåºè¡¨çš„å®šä¹‰ 
 typedef struct{
 	elem_type data[MAXSIZE];
 	int length;
 }seq_list;
-//Ë³Ğò±íµÄ³õÊ¼»¯ 
+//é¡ºåºè¡¨çš„åˆå§‹åŒ– 
 void init_list(seq_list* L)
 {
 	L->length = 0;	
 }
-//ÔÚË³Ğò±íµÄ×îºóÌí¼ÓÔªËØ 
+//åœ¨é¡ºåºè¡¨çš„æœ€åæ·»åŠ å…ƒç´  
 int append_elem(seq_list* L,elem_type e)
 {
 	if(L->length >= MAXSIZE)
 	{
-		printf("Ë³Ğò±íÒÑÂú\n");
+		printf("é¡ºåºè¡¨å·²æ»¡\n");
 		return 0;
 	}
 	L->data[L->length] = e;
 	L->length++;
 	return 1;
 }
-//Ë³Ğò±íµÄ±éÀú 
+//é¡ºåºè¡¨çš„éå† 
 void list_elem(seq_list* L)
 {
 	for(int i = 0;i < L->length;i++)
@@ -32,17 +32,17 @@ void list_elem(seq_list* L)
 	}
 	printf("\n");
 }
-//²åÈëÊı¾İ 
+//æ’å…¥æ•°æ® 
 int insert_elem(seq_list* L,int pos,elem_type e)
 {
 	if(L->length >= MAXSIZE)
 	{
-		printf("Ë³Ğò±íÂúÁË\n");
+		printf("é¡ºåºè¡¨æ»¡äº†\n");
 		return 0;
 	}
 	if(pos < 1 || pos > L->length)
 	{
-		printf("²åÈëÊı¾İÎ»ÖÃÓĞÎó\n");
+		printf("æ’å…¥æ•°æ®ä½ç½®æœ‰è¯¯\n");
 		return 0;
 	}
 	for(int i = L->length - 1;i >= pos - 1;i--)
@@ -52,17 +52,17 @@ int insert_elem(seq_list* L,int pos,elem_type e)
 	L->data[pos - 1] = e;
 	L->length++;
 }
-//É¾³ıÊı¾İ 
+//åˆ é™¤æ•°æ® 
 int delete_elem(seq_list* L,int pos,elem_type* e)
 {
 	if(L->length == 0)
 	{
-		printf("¿Õ±í\n");
+		printf("ç©ºè¡¨\n");
 		return 0;
 	}
 	if(pos < 1 || pos > L->length)
 	{
-		printf("É¾³ıÊı¾İÎ»ÖÃÓĞÎó\n");
+		printf("åˆ é™¤æ•°æ®ä½ç½®æœ‰è¯¯\n");
 	}
 	*e = L->data[pos - 1];
 	for(int i = pos;i < L->length;i++)
@@ -72,7 +72,7 @@ int delete_elem(seq_list* L,int pos,elem_type* e)
 	L->length--;
 	return 1;
 }
-//²éÕÒÊı¾İ 
+//æŸ¥æ‰¾æ•°æ® 
 int find_elem(seq_list* L,elem_type e)
 {
 	for(int i = 0;i < L->length;i++)
@@ -88,24 +88,24 @@ int main(void)
 {
 	seq_list list;
 	init_list(&list);
-	printf("³õÊ¼»¯³É¹¦£¬Ä¿Ç°³¤¶ÈÕ¼ÓÃ%d\n",list.length);
-	printf("Ä¿Ç°Õ¼ÓÃÄÚ´æ%zu×Ö½Ú\n",sizeof(list.data));
-	//Ìí¼ÓĞÂÔªËØ 
+	printf("åˆå§‹åŒ–æˆåŠŸï¼Œç›®å‰é•¿åº¦å ç”¨%d\n",list.length);
+	printf("ç›®å‰å ç”¨å†…å­˜%zuå­—èŠ‚\n",sizeof(list.data));
+	//æ·»åŠ æ–°å…ƒç´  
 	append_elem(&list,18);
 	append_elem(&list,45);
 	append_elem(&list,63);
 	append_elem(&list,17);
-	//´òÓ¡Ë³Ğò±í 
+	//æ‰“å°é¡ºåºè¡¨ 
 	list_elem(&list);
-	//²åÈëĞÂÔªËØ 
+	//æ’å…¥æ–°å…ƒç´  
 	insert_elem(&list,2,10);
 	list_elem(&list);
-	//É¾³ıÔªËØ 
+	//åˆ é™¤å…ƒç´  
 	elem_type e = 0;
 	delete_elem(&list,3,&e);
-	printf("É¾³ıµÄÔªËØÎª£º%d\n",e);
+	printf("åˆ é™¤çš„å…ƒç´ ä¸ºï¼š%d\n",e);
 	list_elem(&list);
-	//²éÕÒÔªËØ
+	//æŸ¥æ‰¾å…ƒç´ 
 	printf("%d\n",find_elem(&list,18)); 
 	return 0;
 } 
