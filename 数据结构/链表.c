@@ -104,6 +104,37 @@ int list_length(Node* L)
     }
     return length;
 }
+//释放链表
+void free_list(Node* L)
+{
+    Node* p = L->next;
+    Node* q;
+    while(p != NULL)
+    {
+        q = p->next;
+        free(p);
+        p = q;
+    }
+    L->next = NULL;
+}
+//查找倒数第k个节点
+Node* find_node_k(Node* L,int k)
+{
+    Node* slow = L->next;
+    Node* fast = L->next;
+    for(int i = 0;i < k;i++)
+    {
+        fast = fast->next;
+        if(fast == NULL)
+            return NULL;
+    }
+    while(fast != NULL)
+    {
+        fast = fast->next;
+        slow = slow->next;
+    }
+    return slow;
+}
 int main(void)
 {
     //初始化链表
@@ -134,5 +165,10 @@ int main(void)
     delete_node(list,4);
     list_node(list);
     //获取链表的长度
-    printf("链表的长度尾：%d\n",list_length(list));
+    printf("链表的长度（包含头节点）为：%d\n",list_length(list));
+    //查找倒数第k个节点
+    Node* k = find_node_k(list,3);
+    printf("倒数第3个节点的data为：%d\n",k->data);
+    //释放链表
+    free_list(list);
 }
