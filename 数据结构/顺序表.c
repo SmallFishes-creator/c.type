@@ -9,7 +9,7 @@ typedef struct{
 //顺序表的初始化 
 void init_list(seq_list* L)
 {
-	L->length = 0;	
+	L->length = 0;
 }
 //在顺序表的最后添加元素 
 int append_elem(seq_list* L,elem_type e)
