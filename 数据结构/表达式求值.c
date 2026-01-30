@@ -1,4 +1,4 @@
-// 表达式求值：82/2+56*-\0
+// 表达式求值：82/2+56*-
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
