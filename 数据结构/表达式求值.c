@@ -16,6 +16,7 @@ stack* inital_stack(void)
     stack* p = (stack*)malloc(sizeof(stack));
     p->data = (elem_type*)calloc(MAXSIZE,sizeof(int));
     p->top = -1;
+    return p;
 }
 int push(stack* L,elem_type e)
 {
@@ -53,6 +54,8 @@ content_type get_token(char* symbol,const char* arr,int* index)
         return MUL;
     case '/':
         return DIV;
+    case '%':
+        return MOD;
     case '\0':
         return EOS;
     default:
@@ -70,7 +73,7 @@ void eval(const char* arr,stack* L,elem_type* result)
     {
         if(token == NUM)
         {
-            push(L,token - '0');
+            push(L,symbol - '0');
         }
         else
         {
@@ -79,19 +82,19 @@ void eval(const char* arr,stack* L,elem_type* result)
             switch(token)
             {
             case ADD:
-                push(L,pos1 + pos2);
+                push(L,pos2 + pos1);
                 break;
             case SUB:
-                push(L,pos1 - pos2);
+                push(L,pos2 - pos1);
                 break;
             case MUL:
-                push(L,pos1 * pos2);
+                push(L,pos2 * pos1);
                 break;
             case DIV:
-                push(L,pos1 / pos2);
+                push(L,pos2 / pos1);
                 break;
             case MOD:
-                push(L,pos1 % pos2);
+                push(L,pos2 % pos1);
                 break;
             }
         }
@@ -102,7 +105,7 @@ void eval(const char* arr,stack* L,elem_type* result)
 int main(void)
 {
     stack* list = inital_stack();
-    char* arr = "82/2+56*-\0";
+    char* arr = "82/2+56*-";
     elem_type result;
     eval(arr,list,&result);
     printf("%d\n",result);
