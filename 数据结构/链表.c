@@ -37,7 +37,7 @@ Node* list_tail(Node* L)
         printf("NO\n");
     return p;
 }
-//尾插法
+//尾插法 
 void insert_tail(Node** tail,elem_type e)
 {
     Node* p =(Node*)malloc(sizeof(Node));
